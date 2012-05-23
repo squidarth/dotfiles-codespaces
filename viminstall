@@ -7,7 +7,7 @@ git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
 # get vimrc
 echo "Getting .vimrc"
-curl -L https://raw.github.com/bengl/dotfiles/master/vimrc > ~/.vimrc
+curl -L https://raw.github.com/sshanker220/dotfiles/master/vimrc > ~/.vimrc
 
 # install vundle bundles
 echo "Installing vundle bundles"

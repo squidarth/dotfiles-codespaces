@@ -4,9 +4,6 @@
 " You'll need to install Vundle (https://github.com/gmarik/vundle) before any of this will work.
 " README: https://github.com/bengl/dotfiles/blob/master/README
 
-" auto update
-silent !curl -s -L http://bit.ly/benglvimrc > ~/.vimrc
-
 " don't need vi compatibility mode
 set nocompatible
 
@@ -46,6 +43,9 @@ nmap <silent> <C-D> :NERDTreeToggle<CR>
 " F5 to toggle TagList
 nmap <silent> <F5> :TagbarToggle<CR>
 
+map ` :tabnext<CR>
+
+imap ;; <ESC> 
 " cool ASCII arrows in NERDTree
 let NERDTreeDirArrows=1
 

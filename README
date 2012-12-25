@@ -1,5 +1,11 @@
 For the moment I've only included my vim-related files, and my iTerm2 config. My shell profile changes too often to be useful.
 
+1.) Symlink the vimrc
+
+2.) Symlink the .zshrc, or at least have a good way of pulling it from
+the oh-my-zsh configuration.
+
+
 A few notes:
 1) These days I'm mostly doing Ruby on Rails stuff, but as you can see by some of my plugins, I like to dabble.
 2) I use both Vim 7.3 (in iTerm2) and MacVim.
@@ -19,4 +25,4 @@ For iTerm2, just import the plist file.
 
 
 
-@bengl
+@squidarth

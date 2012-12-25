@@ -1,4 +1,4 @@
-" @bengl's vimrc
+" @squidarth's vimrc
 " ==============
 "
 " You'll need to install Vundle (https://github.com/gmarik/vundle) before any of this will work.

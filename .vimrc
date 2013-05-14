@@ -24,28 +24,37 @@ Bundle 'anzaika/go.vim'
 Bundle 'tpope/vim-endwise'
 Bundle 'mutewinter/ir_black_mod'
 Bundle 'godlygeek/csapprox'
-Bundle 'Lokaltog/vim-powerline'
 Bundle 'Rykka/colorv.vim'
 Bundle 'mutewinter/vim-indent-guides'
 Bundle 'majutsushi/tagbar'
 Bundle 'kien/ctrlp.vim'
-Bundle 'mileszs/ack.vim'
-Bundle 'dbext.vim'
-Bundle 'Shougo/neocomplcache'
+Bundle 'hougo/neocomplcache'
+Bundle 'vim-ruby/vim-ruby'
+Bundle 'L9'
+Bundle 'FuzzyFinder'
+Bundle 'kien/ctrlp.vim'
+Bundle 'scrooloose/syntastic'
+Bundle 'fholgado/minibufexpl.vim'
 
 " plugins, indents, syntax, filetypes
 filetype plugin indent on
 syntax on
 
+let g:ctrlp_map= '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
+nmap <c-p> :CtrlP<CR>
 " Control D to toggle NERDTree
 nmap <silent> <C-D> :NERDTreeToggle<CR>
 
 " F5 to toggle TagList
 nmap <silent> <F5> :TagbarToggle<CR>
 
+autocmd FileType ruby nmap db ibinding.pry
+autocmd FileType javascript nmap db idebugger
+
 map ` :tabnext<CR>
 
-imap ;; <ESC> 
 " cool ASCII arrows in NERDTree
 let NERDTreeDirArrows=1
 
@@ -66,10 +75,7 @@ imap <M-Space> <C-X><C-O>
 set mouse=a
 
 " folding stuff (i rarely use this)
-set foldmethod=indent
-set foldnestmax=10
-set nofoldenable
-set foldlevel=0
+"set foldmethod=syntax
 
 " super sexy searching
 set incsearch
@@ -111,8 +117,6 @@ set undolevels=1000
 set undoreload=10000
 
 " 80 char limit
-set colorcolumn=81
-highlight ColorColumn ctermbg=darkgray guibg=darkgray
 
 " CtrlP options
 let g:ctrlp_map = '<Leader>t'
@@ -139,3 +143,5 @@ endif
 if has("gui_macvim")
   macmenu &File.New\ Tab key=<nop>
 endif
+
+match ErrorMsg '\s\+$'

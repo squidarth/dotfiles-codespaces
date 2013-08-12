@@ -31,10 +31,8 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'hougo/neocomplcache'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'L9'
-Bundle 'FuzzyFinder'
 Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/syntastic'
-Bundle 'fholgado/minibufexpl.vim'
 
 " plugins, indents, syntax, filetypes
 filetype plugin indent on

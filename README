@@ -1,5 +1,8 @@
 For the moment I've only included my vim-related files, and my iTerm2 config. My shell profile changes too often to be useful.
 
+
+Please map caps lock to escape
+
 1.) Symlink the vimrc
 
 2.) Symlink the .zshrc, or at least have a good way of pulling it from

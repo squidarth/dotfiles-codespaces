@@ -15,7 +15,7 @@ Bundle 'gmarik/vundle'
 
 " vundle bundles
 Bundle 'scrooloose/nerdtree'
-Bundle 'rson/vim-conque'
+Bundle 'vim-scripts/Conque-Shell'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-afterimage'
@@ -25,14 +25,16 @@ Bundle 'tpope/vim-endwise'
 Bundle 'mutewinter/ir_black_mod'
 Bundle 'godlygeek/csapprox'
 Bundle 'Rykka/colorv.vim'
-Bundle 'mutewinter/vim-indent-guides'
+Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'majutsushi/tagbar'
-Bundle 'hougo/neocomplcache'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'L9'
 Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/syntastic'
-
+Bundle 'Shougo/vimshell'
+Bundle 'tpope/vim-markdown'
+Bundle 'bling/vim-airline'
 " plugins, indents, syntax, filetypes
 filetype plugin indent on
 syntax on
@@ -56,8 +58,8 @@ map ` :tabnext<CR>
 let NERDTreeDirArrows=1
 
 " tabs that make sense (and are 2 spaces)
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
 set smartindent
 set expandtab
 

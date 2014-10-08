@@ -27,7 +27,7 @@ Bundle 'godlygeek/csapprox'
 Bundle 'Rykka/colorv.vim'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'majutsushi/tagbar'
-Bundle 'Valloric/YouCompleteMe'
+" Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'L9'
 Bundle 'kien/ctrlp.vim'
@@ -35,6 +35,8 @@ Bundle 'scrooloose/syntastic'
 Bundle 'Shougo/vimshell'
 Bundle 'tpope/vim-markdown'
 Bundle 'bling/vim-airline'
+Bundle 'ivanov/vim-ipython'
+Bundle 'ervandew/supertab'
 " plugins, indents, syntax, filetypes
 filetype plugin indent on
 syntax on

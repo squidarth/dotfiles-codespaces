@@ -15,7 +15,6 @@ Bundle 'gmarik/vundle'
 
 " vundle bundles
 Bundle 'scrooloose/nerdtree'
-Bundle 'vim-scripts/Conque-Shell'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-rails'
 Bundle 'tpope/vim-afterimage'
@@ -25,22 +24,35 @@ Bundle 'tpope/vim-endwise'
 Bundle 'mutewinter/ir_black_mod'
 Bundle 'godlygeek/csapprox'
 Bundle 'Rykka/colorv.vim'
-Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'majutsushi/tagbar'
-" Bundle 'Valloric/YouCompleteMe'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'L9'
 Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/syntastic'
-Bundle 'Shougo/vimshell'
-Bundle 'tpope/vim-markdown'
-Bundle 'bling/vim-airline'
-Bundle 'ivanov/vim-ipython'
+Bundle 'guns/vim-clojure-static'
+Bundle 'tpope/vim-fireplace'
+Bundle 'davidhalter/jedi-vim'
+Bundle 'rust-lang/rust.vim'
 Bundle 'ervandew/supertab'
+Bundle 'lambdatoast/elm.vim'
+Bundle 'bling/vim-airline'
+
+" Enable airline buffer listings.
+let g:airline#extensions#tabline#enabled = 1
+let mapleader = "\<Space>"
+
+" Dealing with buffers more easily
+" Close buffers with leaderbq
+nmap <leader>bq :bp <BAR> bd #<CR>
+nmap <leader>h :bprevious<CR>
+nmap <leader>l :bnext<CR>
+nmap <leader>bl :ls<CR>
+
 " plugins, indents, syntax, filetypes
 filetype plugin indent on
 syntax on
 
+let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
 let g:ctrlp_map= '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
@@ -51,17 +63,12 @@ nmap <silent> <C-D> :NERDTreeToggle<CR>
 " F5 to toggle TagList
 nmap <silent> <F5> :TagbarToggle<CR>
 
-autocmd FileType ruby nmap db ibinding.pry
-autocmd FileType javascript nmap db idebugger
-
-map ` :tabnext<CR>
-
 " cool ASCII arrows in NERDTree
 let NERDTreeDirArrows=1
 
 " tabs that make sense (and are 2 spaces)
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 set smartindent
 set expandtab
 
@@ -72,13 +79,6 @@ set number
 set ofu=syntaxcomplete#Complete
 imap <M-Space> <C-X><C-O>
 
-" use mouse even in terminal
-set mouse=a
-
-" folding stuff (i rarely use this)
-"set foldmethod=syntax
-
-" super sexy searching
 set incsearch
 set hlsearch
 
@@ -117,32 +117,12 @@ set undodir=$HOME/.vim/undo
 set undolevels=1000
 set undoreload=10000
 
-" 80 char limit
-
 " CtrlP options
-let g:ctrlp_map = '<Leader>t'
 nmap <silent> <Leader>tt :CtrlPTag<CR>
 set wildignore+=.git/*
 let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files']
 
 " enable neocomplcache
 let g:neocomplcache_enable_at_startup = 1
-
-" gui stuff
-if has("gui_running")
-  set guifont=Menlo\ Regular:h14 "this is actually Menlo with Powerline patch
-  set guioptions-=T
-  set guioptions-=r
-  set guioptions-=R
-  set guioptions-=l
-  set guioptions-=L
-  set fuoptions=maxvert,maxhorz
-  set background=dark
-endif
-
-" macvim stuff
-if has("gui_macvim")
-  macmenu &File.New\ Tab key=<nop>
-endif
 
 match ErrorMsg '\s\+$'

@@ -1,83 +1,73 @@
-# Path to your oh-my-zsh installation.
-export ZSH=$HOME/.oh-my-zsh
-
+# Path to your oh-my-zsh configuration.
+ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 ZSH_THEME="gallois"
 
-# Git Aliases
-
-alias gd="git diff"
-alias gco="git checkout"
-alias ga="git add"
-alias gp="git pull"
-alias gps="git push"
-alias gs="git status"
-
 # Example aliases
+alias vs="vagrant ssh"
+alias vu="vagrant up"
+alias gg="git grep"
+alias src="cd ~/Documents/src"
+alias gprune="git branch --merged master | grep -v 'master$' | xargs git branch -d"
+# export DOCKER_HOST="tcp://192.168.66.10:2375"
+export FIN_HOME=~/Documents/src/fin-core-beta
+export DOCKER_API_VERSION=1.21
+alias 🔥="rm"
+alias cob="!git checkout -b $1 && git push -u origin"
+alias vf="vim \$(fzf)"
+alias v="vim"
+alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
+alias ctags="`brew --prefix`/bin/ctags"
+
+function gitmigrate () {
+  branch_name=$(git symbolic-ref -q HEAD)
+  branch_name=${branch_name##refs/heads/}
+  branch_name=${branch_name:-HEAD}
+  new_branch_name=${branch_name}-migrations
+
+  git checkout master && git checkout -b ${new_branch_name} && git checkout ${branch_name} db/migrate && git commit -m "Add migrations from ${branch_name}"
+}
+
+
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# Uncomment the following line to use case-sensitive completion.
+# Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
+# Comment this out to disable bi-weekly auto-update checks
 # DISABLE_AUTO_UPDATE="true"
 
-# Uncomment the following line to change how often to auto-update (in days).
+# Uncomment to change how many often would you like to wait before auto-updates occur? (in days)
 # export UPDATE_ZSH_DAYS=13
 
-# Uncomment the following line to disable colors in ls.
+# Uncomment following line if you want to disable colors in ls
 # DISABLE_LS_COLORS="true"
 
-# Uncomment the following line to disable auto-setting terminal title.
+# Uncomment following line if you want to disable autosetting terminal title.
 # DISABLE_AUTO_TITLE="true"
 
-# Uncomment the following line to disable command auto-correction.
-# DISABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
+# Uncomment following line if you want red dots to be displayed while waiting for completion
 # COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+plugins=(git rails3 bundler zeus vagrant)
 
 source $ZSH/oh-my-zsh.sh
 
-# User configuration
+[[ -s "/Users/sshanker220/.rvm/scripts/rvm" ]] && source "/Users/sshanker220/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-# export MANPATH="/usr/local/man:$MANPATH"
+# Customize to your needs...
+export PATH=$PATH:/Users/sshanker220/.rvm/gems/ruby-1.9.3-p0/bin:/Users/sshanker220/.rvm/gems/ruby-1.9.3-p0@global/bin:/Users/sshanker220/.rvm/rubies/ruby-1.9.3-p0/bin:/Users/sshanker220/.rvm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/texbin:/Users/sshanker220/go/bin
+export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="$PATH:/usr/local/terraform/bin"
+source ~/.rvm/scripts/rvm
 
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
 
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
-
-# ssh
-# export SSH_KEY_PATH="~/.ssh/dsa_id"

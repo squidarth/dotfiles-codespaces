@@ -2,7 +2,7 @@
 " ==============
 "
 " You'll need to install Vundle (https://github.com/gmarik/vundle) before any of this will work.
-" README: https://github.com/bengl/dotfiles/blob/master/README
+" README: https://github.com/squidarth/dotfiles/blob/master/README
 
 " don't need vi compatibility mode
 set nocompatible
@@ -27,19 +27,40 @@ Bundle 'Rykka/colorv.vim'
 Bundle 'majutsushi/tagbar'
 Bundle 'vim-ruby/vim-ruby'
 Bundle 'L9'
-Bundle 'kien/ctrlp.vim'
+" Bundle 'kien/ctrlp.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'guns/vim-clojure-static'
 Bundle 'tpope/vim-fireplace'
 Bundle 'davidhalter/jedi-vim'
 Bundle 'rust-lang/rust.vim'
-Bundle 'ervandew/supertab'
 Bundle 'lambdatoast/elm.vim'
 Bundle 'bling/vim-airline'
+Bundle 'thoughtbot/vim-rspec'
+Bundle 'jgdavey/tslime.vim'
+Bundle 'mustache/vim-mustache-handlebars'
+Bundle 'tpope/vim-abolish'
+Bundle 'benmills/vimux'
+" Bundle "ervandew/supertab"
+Bundle 'junegunn/fzf'
+Bundle 'junegunn/fzf.vim'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'terryma/vim-multiple-cursors'
+" Bundle 'Shougo/neocomplete.vim'
+" let $PATH = '/usr/local/bin:'.$PATH
 
 " Enable airline buffer listings.
 let g:airline#extensions#tabline#enabled = 1
 let mapleader = "\<Space>"
+
+let g:tslime_always_current_session = 1
+let g:tslime_always_current_window = 1
+
+map <Leader>rt :call RunCurrentSpecFile()<CR>
+map <Leader>rs :call RunNearestSpec()<CR>
+map <Leader>rl :call RunLastSpec()<CR>
+map <Leader>ra :call RunAllSpecs()<CR>
+set re=1
+let g:rspec_command = 'call Send_to_Tmux("./bin/rspec {spec}\n")'
 
 " Dealing with buffers more easily
 " Close buffers with leaderbq
@@ -48,15 +69,50 @@ nmap <leader>h :bprevious<CR>
 nmap <leader>l :bnext<CR>
 nmap <leader>bl :ls<CR>
 
+nnoremap <leader>s :w<CR>
+nnoremap <leader>p :Tags<CR>
+imap jj <ESC>
+autocmd FileType javascript map <Leader>rf :call VimuxRunCommand("clear; ./dev-scripts/karma-run-line-number.sh " . expand("%.") . ":" . line("."))<CR>
+autocmd FileType javascript map <Leader>ra :call VimuxRunCommand("clear; $NODE_PATH/karma/bin/karma run")<CR>
+
+autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+
+autocmd FileType ruby,javascript autocmd BufWritePre <buffer> %s/\s\+$//e
+
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_loc_list_height = 5
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+let g:syntastic_javascript_checkers = ['eslint']
+
+let g:syntastic_error_symbol = '❌'
+let g:syntastic_style_error_symbol = '⁉️'
+let g:syntastic_warning_symbol = '⚠️'
+let g:syntastic_style_warning_symbol = '💩'
+
+highlight link SyntasticErrorSign SignColumn
+highlight link SyntasticWarningSign SignColumn
+highlight link SyntasticStyleErrorSign SignColumn
+highlight link SyntasticStyleWarningSign SignColumn
+
+let g:jsx_ext_required = 0
+
 " plugins, indents, syntax, filetypes
 filetype plugin indent on
 syntax on
+let g:SuperTabDefaultCompletionType = '<c-n>'
+"let g:ctrlp_map= '<c-p>'
+" let g:ctrlp_cmd = 'CtrlP'
 
-let g:SuperTabDefaultCompletionType = '<c-x><c-o>'
-let g:ctrlp_map= '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-
-nmap <c-p> :CtrlP<CR>
+nmap <c-p> :FZF<CR>
 " Control D to toggle NERDTree
 nmap <silent> <C-D> :NERDTreeToggle<CR>
 
@@ -74,6 +130,7 @@ set expandtab
 
 " line numbers
 set number
+set relativenumber
 
 " syntax completion with Alt/Option-Space
 set ofu=syntaxcomplete#Complete
@@ -118,11 +175,25 @@ set undolevels=1000
 set undoreload=10000
 
 " CtrlP options
-nmap <silent> <Leader>tt :CtrlPTag<CR>
 set wildignore+=.git/*
-let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files']
+" let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files']
 
-" enable neocomplcache
-let g:neocomplcache_enable_at_startup = 1
+" enable neocomplete
+let g:acp_enableAtStartup = 0
+"let g:neocomplete#enable_at_startup = 1
+"
+"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+"autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+"autocmd FileType ruby setlocal omnifunc=rubycomplete#CompleteTags
+
 
 match ErrorMsg '\s\+$'
+
+" Vim-abolish lines
+au bufenter * Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or}  {despe,sepa}rat{}
+au bufenter * Abolish {ocur}ence{s,} {occurr}ence{}
+au bufenter * Abolish {dashbao}rd {dashboa}rd
+au bufenter * Abolish {privel}ege {privil}ege

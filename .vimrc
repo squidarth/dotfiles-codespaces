@@ -7,47 +7,44 @@
 " don't need vi compatibility mode
 set nocompatible
 
-" vundle stuff
-filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
+call plug#begin()
+Plug 'gmarik/vundle'
 
 " vundle bundles
-Bundle 'scrooloose/nerdtree'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-rails'
-Bundle 'tpope/vim-afterimage'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'anzaika/go.vim'
-Bundle 'tpope/vim-endwise'
-Bundle 'mutewinter/ir_black_mod'
-Bundle 'godlygeek/csapprox'
-Bundle 'Rykka/colorv.vim'
-Bundle 'majutsushi/tagbar'
-Bundle 'vim-ruby/vim-ruby'
-Bundle 'L9'
-" Bundle 'kien/ctrlp.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'guns/vim-clojure-static'
-Bundle 'tpope/vim-fireplace'
-Bundle 'davidhalter/jedi-vim'
-Bundle 'rust-lang/rust.vim'
-Bundle 'lambdatoast/elm.vim'
-Bundle 'bling/vim-airline'
-Bundle 'thoughtbot/vim-rspec'
-Bundle 'jgdavey/tslime.vim'
-Bundle 'mustache/vim-mustache-handlebars'
-Bundle 'tpope/vim-abolish'
-Bundle 'benmills/vimux'
-" Bundle "ervandew/supertab"
-Bundle 'junegunn/fzf'
-Bundle 'junegunn/fzf.vim'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'terryma/vim-multiple-cursors'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rails'
+Plug 'tpope/vim-afterimage'
+Plug 'kchmck/vim-coffee-script'
+Plug 'anzaika/go.vim'
+Plug 'tpope/vim-endwise'
+Plug 'mutewinter/ir_black_mod'
+Plug 'godlygeek/csapprox'
+Plug 'Rykka/colorv.vim'
+Plug 'majutsushi/tagbar'
+Plug 'vim-ruby/vim-ruby'
+Plug 'L9'
+" Plug 'kien/ctrlp.vim'
+Plug 'scrooloose/syntastic'
+Plug 'guns/vim-clojure-static'
+Plug 'tpope/vim-fireplace'
+Plug 'davidhalter/jedi-vim'
+Plug 'rust-lang/rust.vim'
+Plug 'lambdatoast/elm.vim'
+Plug 'bling/vim-airline'
+Plug 'thoughtbot/vim-rspec'
+Plug 'jgdavey/tslime.vim'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'tpope/vim-abolish'
+Plug 'benmills/vimux'
+" Plug "ervandew/supertab"
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'Valloric/YouCompleteMe'
+Plug 'terryma/vim-multiple-cursors'
 " Bundle 'Shougo/neocomplete.vim'
 " let $PATH = '/usr/local/bin:'.$PATH
-
+call plug#end()
 " Enable airline buffer listings.
 let g:airline#extensions#tabline#enabled = 1
 let mapleader = "\<Space>"
@@ -65,6 +62,7 @@ let g:rspec_command = 'call Send_to_Tmux("./bin/rspec {spec}\n")'
 " Dealing with buffers more easily
 " Close buffers with leaderbq
 nmap <leader>bq :bp <BAR> bd #<CR>
+nmap <leader>q :qall<CR>
 nmap <leader>h :bprevious<CR>
 nmap <leader>l :bnext<CR>
 nmap <leader>bl :ls<CR>
@@ -92,11 +90,6 @@ let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
 let g:syntastic_javascript_checkers = ['eslint']
-
-let g:syntastic_error_symbol = '❌'
-let g:syntastic_style_error_symbol = '⁉️'
-let g:syntastic_warning_symbol = '⚠️'
-let g:syntastic_style_warning_symbol = '💩'
 
 highlight link SyntasticErrorSign SignColumn
 highlight link SyntasticWarningSign SignColumn

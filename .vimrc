@@ -1,8 +1,6 @@
 " @squidarth's vimrc
 " ==============
-"
-" You'll need to install Vundle (https://github.com/gmarik/vundle) before any of this will work.
-" README: https://github.com/squidarth/dotfiles/blob/master/README
+" " You'll need to install Vundle (https://github.com/gmarik/vundle) before any of this will work.  " README: https://github.com/squidarth/dotfiles/blob/master/README
 
 " don't need vi compatibility mode
 set nocompatible
@@ -25,7 +23,7 @@ Plug 'majutsushi/tagbar'
 Plug 'vim-ruby/vim-ruby'
 Plug 'L9'
 " Plug 'kien/ctrlp.vim'
-Plug 'scrooloose/syntastic'
+Plug 'w0rp/ale'
 Plug 'guns/vim-clojure-static'
 Plug 'tpope/vim-fireplace'
 Plug 'davidhalter/jedi-vim'
@@ -49,6 +47,7 @@ call plug#end()
 let g:airline#extensions#tabline#enabled = 1
 let mapleader = "\<Space>"
 
+set lazyredraw
 let g:tslime_always_current_session = 1
 let g:tslime_always_current_window = 1
 
@@ -81,20 +80,31 @@ autocmd FileType ruby,javascript autocmd BufWritePre <buffer> %s/\s\+$//e
 
 
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%{ALEGetStatusLine()}
 set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_loc_list_height = 5
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-let g:syntastic_javascript_checkers = ['eslint']
+let g:airline#extensions#ale#enable = 1
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:airline_section_error = '%{ALEGetStatusLine()}'
 
-highlight link SyntasticErrorSign SignColumn
-highlight link SyntasticWarningSign SignColumn
-highlight link SyntasticStyleErrorSign SignColumn
-highlight link SyntasticStyleWarningSign SignColumn
+let g:ale_linters = { 'javascript': ['eslint'], 'jsx': ['eslint']  }
+let g:ale_javascript_eslint_use_global = 1
+
+nnoremap <leader>a :ALENextWrap<CR>
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_loc_list_height = 5
+" let g:syntastic_auto_loc_list = 0
+" let g:syntastic_check_on_open = 0
+" let g:syntastic_check_on_wq = 1
+" let g:syntastic_javascript_checkers = ['eslint']
+
+"highlight link SyntasticErrorSign SignColumn
+"highlight link SyntasticWarningSign SignColumn
+"highlight link SyntasticStyleErrorSign SignColumn
+"highlight link SyntasticStyleWarningSign SignColumn
 
 let g:jsx_ext_required = 0
 

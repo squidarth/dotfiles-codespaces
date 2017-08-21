@@ -6,9 +6,10 @@
 set nocompatible
 
 call plug#begin()
-Plug 'gmarik/vundle'
 
 " vundle bundles
+Plug 'gmarik/vundle'
+Plug 'sbdchd/neoformat'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rails'
@@ -22,6 +23,7 @@ Plug 'Rykka/colorv.vim'
 Plug 'majutsushi/tagbar'
 Plug 'vim-ruby/vim-ruby'
 Plug 'L9'
+Plug 'scrooloose/nerdcommenter'
 " Plug 'kien/ctrlp.vim'
 Plug 'w0rp/ale'
 Plug 'guns/vim-clojure-static'
@@ -40,6 +42,8 @@ Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'Valloric/YouCompleteMe'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'bogado/file-line'
+
 " Bundle 'Shougo/neocomplete.vim'
 " let $PATH = '/usr/local/bin:'.$PATH
 call plug#end()
@@ -93,18 +97,17 @@ let g:airline_section_error = '%{ALEGetStatusLine()}'
 let g:ale_linters = { 'javascript': ['eslint'], 'jsx': ['eslint']  }
 let g:ale_javascript_eslint_use_global = 1
 
-nnoremap <leader>a :ALENextWrap<CR>
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_loc_list_height = 5
-" let g:syntastic_auto_loc_list = 0
-" let g:syntastic_check_on_open = 0
-" let g:syntastic_check_on_wq = 1
-" let g:syntastic_javascript_checkers = ['eslint']
+" Fixer options
+let g:ale_fixers = {
+\  'javascript': ['prettier', 'remove_trailing_lines'],
+\  'ruby': ['rubocop', 'remove_trailing_lines'],
+\}
 
-"highlight link SyntasticErrorSign SignColumn
-"highlight link SyntasticWarningSign SignColumn
-"highlight link SyntasticStyleErrorSign SignColumn
-"highlight link SyntasticStyleWarningSign SignColumn
+let g:ale_fix_on_save = 1
+let g:ale_javascript_prettier_options = ' --parser babylon --single-quote --jsx-bracket-same-line --trailing-comma es5 --print-width 100'
+let g:ale_javascript_flow_executable = './dev-scripts/flow-proxy.sh'
+
+nnoremap <leader>a :ALENextWrap<CR>
 
 let g:jsx_ext_required = 0
 
@@ -116,8 +119,9 @@ let g:SuperTabDefaultCompletionType = '<c-n>'
 " let g:ctrlp_cmd = 'CtrlP'
 
 nmap <c-p> :FZF<CR>
+
 " Control D to toggle NERDTree
-nmap <silent> <C-D> :NERDTreeToggle<CR>
+nmap <silent> <C-J> :NERDTreeToggle<CR>
 
 " F5 to toggle TagList
 nmap <silent> <F5> :TagbarToggle<CR>
@@ -177,6 +181,11 @@ set undodir=$HOME/.vim/undo
 set undolevels=1000
 set undoreload=10000
 
+" Prettier settings
+autocmd BufWritePre *.js Neoformat
+autocmd FileType javascript setlocal formatprg=prettier\ --write\ --single-quote\ --jsx-bracket-same-line\ --parser\ babylon\ --trailing-comma\ es5\ --print-width\ 100
+let g:neoformat_try_formatprg = 1  " Use formatprg when available
+
 " CtrlP options
 set wildignore+=.git/*
 " let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files']
@@ -192,7 +201,6 @@ let g:acp_enableAtStartup = 0
 "autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 "autocmd FileType ruby setlocal omnifunc=rubycomplete#CompleteTags
 
-
 match ErrorMsg '\s\+$'
 
 " Vim-abolish lines
@@ -200,3 +208,5 @@ au bufenter * Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or}  {despe,sepa}
 au bufenter * Abolish {ocur}ence{s,} {occurr}ence{}
 au bufenter * Abolish {dashbao}rd {dashboa}rd
 au bufenter * Abolish {privel}ege {privil}ege
+au bufenter * Abolish reduct{ino} reduct{ion}
+au bufenter * Abolish subscript{oin} subscript{ion}

@@ -4,23 +4,24 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="gallois"
+ZSH_THEME="robbyrussell"
+
 
 # Example aliases
 alias vs="vagrant ssh"
 alias vu="vagrant up"
 alias gg="git grep"
 alias src="cd ~/Documents/src"
-alias gprune="git branch --merged master | grep -v 'master$' | xargs git branch -d"
 # export DOCKER_HOST="tcp://192.168.66.10:2375"
 export FIN_HOME=~/Documents/src/fin-core-beta
-export DOCKER_API_VERSION=1.21
+export DOCKER_API_VERSION=1.25
 alias 🔥="rm"
 alias cob="!git checkout -b $1 && git push -u origin"
 alias vf="vim \$(fzf)"
 alias v="vim"
 alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
 alias ctags="`brew --prefix`/bin/ctags"
+source "${FIN_HOME}/fin-dev/bashrc"
 
 function gitmigrate () {
   branch_name=$(git symbolic-ref -q HEAD)
@@ -31,6 +32,28 @@ function gitmigrate () {
   git checkout master && git checkout -b ${new_branch_name} && git checkout ${branch_name} db/migrate && git commit -m "Add migrations from ${branch_name}"
 }
 
+bindkey -v
+
+function zle-line-init zle-keymap-select {
+    RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
+    RPS2=$RPS1
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+source "${FIN_HOME}/fin-dev/bashrc"
+# export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
+# globalias() {
+#   if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
+#     zle _expand_alias
+#     zle expand-word
+#   fi
+#   zle self-insert
+#}
+#
+#zle -N globalias
+#
+#globalias start-karma="xvfb-run $NODE_PATH/karma/bin/karma start --single-run=false"
 
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
@@ -59,7 +82,6 @@ function gitmigrate () {
 plugins=(git rails3 bundler zeus vagrant)
 
 source $ZSH/oh-my-zsh.sh
-
 [[ -s "/Users/sshanker220/.rvm/scripts/rvm" ]] && source "/Users/sshanker220/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 # Customize to your needs...
@@ -68,6 +90,9 @@ export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export PATH="$PATH:/usr/local/terraform/bin"
+export PATH="$PATH:$HOME/Documents/src/ops-chrome-extension/node_modules/.bin"
 source ~/.rvm/scripts/rvm
 
-
+bindkey -v
+bindkey "^?" backward-delete-char
+bindkey "^R" history-incremental-search-backward

@@ -22,9 +22,9 @@ Plug 'godlygeek/csapprox'
 Plug 'Rykka/colorv.vim'
 Plug 'majutsushi/tagbar'
 Plug 'vim-ruby/vim-ruby'
-Plug 'L9'
+Plug 'tpope/vim-bundler'
+Plug 'tpope/vim-rvm'
 Plug 'scrooloose/nerdcommenter'
-" Plug 'kien/ctrlp.vim'
 Plug 'w0rp/ale'
 Plug 'guns/vim-clojure-static'
 Plug 'tpope/vim-fireplace'
@@ -43,6 +43,13 @@ Plug 'junegunn/fzf.vim'
 Plug 'Valloric/YouCompleteMe'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'bogado/file-line'
+Plug 'nvie/vim-flake8'
+Plug 'rizzatti/dash.vim'
+Plug 'jceb/vim-orgmode'
+Plug 'vim-scripts/utl.vim'
+Plug 'tpope/vim-speeddating'
+Plug 'easymotion/vim-easymotion'
+Plug 'http://github.com/sjl/gundo.vim.git'
 
 " Bundle 'Shougo/neocomplete.vim'
 " let $PATH = '/usr/local/bin:'.$PATH
@@ -69,6 +76,13 @@ nmap <leader>q :qall<CR>
 nmap <leader>h :bprevious<CR>
 nmap <leader>l :bnext<CR>
 nmap <leader>bl :ls<CR>
+nmap <leader>w :Dash<CR>
+nmap <leader>g :GG <C-R><C-W><CR>
+nmap <leader>] :cclose<CR>
+autocmd FileType javascript map <Leader>j :call VimuxRunCommand("clear; ./dev-scripts/jest-run-focused-test.sh " . expand("%.") . ":" . line("."))<CR>
+inoremap <c-j> <c-o>:reg<CR>
+
+nmap <c-j> :reg<CR>
 
 nnoremap <leader>s :w<CR>
 nnoremap <leader>p :Tags<CR>
@@ -121,7 +135,7 @@ let g:SuperTabDefaultCompletionType = '<c-n>'
 nmap <c-p> :FZF<CR>
 
 " Control D to toggle NERDTree
-nmap <silent> <C-J> :NERDTreeToggle<CR>
+nmap <silent> <C-g> :NERDTreeToggle<CR>
 
 " F5 to toggle TagList
 nmap <silent> <F5> :TagbarToggle<CR>
@@ -185,7 +199,8 @@ set undoreload=10000
 autocmd BufWritePre *.js Neoformat
 autocmd FileType javascript setlocal formatprg=prettier\ --write\ --single-quote\ --jsx-bracket-same-line\ --parser\ babylon\ --trailing-comma\ es5\ --print-width\ 100
 let g:neoformat_try_formatprg = 1  " Use formatprg when available
-
+" Flake8 settings
+autocmd BufWritePost *.py call Flake8()
 " CtrlP options
 set wildignore+=.git/*
 " let g:ctrlp_user_command = ['.git/', 'cd %s && git ls-files']
@@ -210,3 +225,20 @@ au bufenter * Abolish {dashbao}rd {dashboa}rd
 au bufenter * Abolish {privel}ege {privil}ege
 au bufenter * Abolish reduct{ino} reduct{ion}
 au bufenter * Abolish subscript{oin} subscript{ion}
+
+
+" Org mode settings
+let g:org_agenda_files=['~/org/index.org']
+autocmd QuickFixCmdPost *grep* cwindow
+" Allow for automatic ggrepping
+command -nargs=+ GG execute 'silent Ggrep!' <q-args> | cw | redraw!
+
+map W <Plug>(easymotion-w)
+map B <Plug>(easymotion-b)
+map S <Plug>(easymotion-s)
+
+nnoremap <leader>u :GundoToggle<CR>
+let g:gundo_width = 50
+let g:gundo_preview_height = 15
+let g:gundo_right = 0
+let g:gundo_preview_bottom = 1

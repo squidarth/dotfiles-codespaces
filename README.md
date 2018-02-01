@@ -1,9 +1,11 @@
-For the moment I've only included my vim-related files, and my iTerm2 config. My shell profile changes too often to be useful.
+## @squidarth's dotfiles
 
+### Setup
 
 1.) Please map caps lock to escape
 2.) Run setup.sh (will setup vim and shell)  --
 
 curl https://raw.githubusercontent.com/squidarth/dotfiles/master/setup.sh |bash
 
-@squidarth
+- @squidarth
+

@@ -15,13 +15,15 @@ alias src="cd ~/Documents/src"
 # export DOCKER_HOST="tcp://192.168.66.10:2375"
 export FIN_HOME=~/Documents/src/fin-core-beta
 export DOCKER_API_VERSION=1.25
-alias 🔥="rm"
 alias cob="!git checkout -b $1 && git push -u origin"
 alias vf="vim \$(fzf)"
 alias v="vim"
 alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
+alias emacs="/usr/local/bin/emacs"
 alias ctags="`brew --prefix`/bin/ctags"
+alias dk="docker-compose"
 source "${FIN_HOME}/fin-dev/bashrc"
+source ~/Downloads/google-cloud-sdk/path.zsh.inc
 
 function gitmigrate () {
   branch_name=$(git symbolic-ref -q HEAD)
@@ -42,6 +44,11 @@ function zle-line-init zle-keymap-select {
 zle -N zle-line-init
 zle -N zle-keymap-select
 source "${FIN_HOME}/fin-dev/bashrc"
+
+function clear_swaps {
+  find . -name ".*.sw*" -exec rm {} \;
+}
+
 # export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 # globalias() {
 #   if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
@@ -79,7 +86,7 @@ source "${FIN_HOME}/fin-dev/bashrc"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git rails3 bundler zeus vagrant)
+plugins=(git rails3 bundler zeus vagrant zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 [[ -s "/Users/sshanker220/.rvm/scripts/rvm" ]] && source "/Users/sshanker220/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
@@ -96,3 +103,16 @@ source ~/.rvm/scripts/rvm
 bindkey -v
 bindkey "^?" backward-delete-char
 bindkey "^R" history-incremental-search-backward
+
+# FZF
+source "$HOME/.fzf.conf.zsh"
+
+PROMPT='${ret_status}%{$fg_bold[green]%}%p %{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}${NEWLINE}$ '
+
+function branches-for-cleanup {
+  git fetch --prune &> /dev/null;  git branch -vv | grep ': gone' | perl -lne '/^\\s+(\\S+)\\s/; print $1'
+}
+        # Delete branches that have been merged
+function cleanup-branches {
+  gco master; branches-for-cleanup | xargs -n1 git branch -D
+}

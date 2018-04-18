@@ -40,7 +40,7 @@ Plug 'benmills/vimux'
 " Plug "ervandew/supertab"
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'Valloric/YouCompleteMe'
+ Plug 'Valloric/YouCompleteMe'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'bogado/file-line'
 Plug 'nvie/vim-flake8'
@@ -50,6 +50,10 @@ Plug 'vim-scripts/utl.vim'
 Plug 'tpope/vim-speeddating'
 Plug 'easymotion/vim-easymotion'
 Plug 'http://github.com/sjl/gundo.vim.git'
+Plug 'tpope/vim-dispatch'
+Plug 'xolox/vim-session'
+Plug 'xolox/vim-misc'
+Plug 'tpope/vim-rhubarb'
 
 " Bundle 'Shougo/neocomplete.vim'
 " let $PATH = '/usr/local/bin:'.$PATH
@@ -76,7 +80,6 @@ nmap <leader>q :qall<CR>
 nmap <leader>h :bprevious<CR>
 nmap <leader>l :bnext<CR>
 nmap <leader>bl :ls<CR>
-nmap <leader>w :Dash<CR>
 nmap <leader>g :GG <C-R><C-W><CR>
 nmap <leader>] :cclose<CR>
 autocmd FileType javascript map <Leader>j :call VimuxRunCommand("clear; ./dev-scripts/jest-run-focused-test.sh " . expand("%.") . ":" . line("."))<CR>
@@ -108,7 +111,7 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:airline_section_error = '%{ALEGetStatusLine()}'
 
-let g:ale_linters = { 'javascript': ['eslint'], 'jsx': ['eslint']  }
+let g:ale_linters = { 'javascript': ['eslint', 'flow'], 'jsx': ['eslint', 'flow']  }
 let g:ale_javascript_eslint_use_global = 1
 
 " Fixer options
@@ -224,7 +227,7 @@ au bufenter * Abolish {ocur}ence{s,} {occurr}ence{}
 au bufenter * Abolish {dashbao}rd {dashboa}rd
 au bufenter * Abolish {privel}ege {privil}ege
 au bufenter * Abolish reduct{ino} reduct{ion}
-au bufenter * Abolish subscript{oin} subscript{ion}
+au bufenter * Abolish subscript{oin,ino} subscript{ion}
 
 
 " Org mode settings
@@ -242,3 +245,5 @@ let g:gundo_width = 50
 let g:gundo_preview_height = 15
 let g:gundo_right = 0
 let g:gundo_preview_bottom = 1
+
+let g:session_autoload = 'no'

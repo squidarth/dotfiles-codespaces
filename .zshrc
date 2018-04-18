@@ -23,7 +23,6 @@ alias emacs="/usr/local/bin/emacs"
 alias ctags="`brew --prefix`/bin/ctags"
 alias dk="docker-compose"
 source "${FIN_HOME}/fin-dev/bashrc"
-source ~/Downloads/google-cloud-sdk/path.zsh.inc
 
 function gitmigrate () {
   branch_name=$(git symbolic-ref -q HEAD)
@@ -112,7 +111,8 @@ PROMPT='${ret_status}%{$fg_bold[green]%}%p %{$fg[cyan]%}%c %{$fg_bold[blue]%}$(g
 function branches-for-cleanup {
   git fetch --prune &> /dev/null;  git branch -vv | grep ': gone' | perl -lne '/^\\s+(\\S+)\\s/; print $1'
 }
-        # Delete branches that have been merged
+
+# Delete branches that have been merged
 function cleanup-branches {
-  gco master; branches-for-cleanup | xargs -n1 git branch -D
+  git checkout master;comm -12 <(git branch | sed "s/ *//g") <(git remote prune origin --dry-run | sed "s/^.*origin\///g") |xargs git branch -D
 }

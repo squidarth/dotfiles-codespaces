@@ -1,0 +1,17 @@
+{
+    "window.zoomLevel": 1,
+    "vim.useSystemClipboard": true,
+    "keyboard.dispatch": "keyCode", 
+        "vim.insertModeKeyBindings": [
+        {
+            "before": ["j", "j"],
+            "after": ["<Esc>"]
+        },
+        {
+            "before": ["<Caps-Lock"],
+            "after": ["<Esc>"]
+        }
+    ],
+    "editor.wordWrap": "on",
+        
+}

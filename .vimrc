@@ -8,6 +8,8 @@ set nocompatible
 call plug#begin()
 
 " vundle bundles
+Plug 'morhetz/gruvbox'
+Plug 'ziglang/zig.vim'
 Plug 'gmarik/vundle'
 Plug 'sbdchd/neoformat'
 Plug 'scrooloose/nerdtree'
@@ -54,7 +56,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'xolox/vim-session'
 Plug 'xolox/vim-misc'
 Plug 'tpope/vim-rhubarb'
-
+Plug 'derekwyatt/vim-scala'
 " Bundle 'Shougo/neocomplete.vim'
 " let $PATH = '/usr/local/bin:'.$PATH
 call plug#end()
@@ -101,7 +103,7 @@ autocmd FileType ruby,javascript autocmd BufWritePre <buffer> %s/\s\+$//e
 
 
 set statusline+=%#warningmsg#
-set statusline+=%{ALEGetStatusLine()}
+" set statusline+=%{ALEGetStatusLine()}
 set statusline+=%*
 
 let g:airline#extensions#ale#enable = 1
@@ -109,7 +111,7 @@ let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:airline_section_error = '%{ALEGetStatusLine()}'
+" let g:airline_section_error = '%{ALEGetStatusLine()}'
 
 let g:ale_linters = { 'javascript': ['eslint', 'flow'], 'jsx': ['eslint', 'flow']  }
 let g:ale_javascript_eslint_use_global = 1
@@ -187,8 +189,9 @@ set modeline
 set modelines=3
 
 " use system clipboard
-set clipboard=unnamed
-
+"set clipboard=unnamed
+"
+set clipboard=unnamedplus
 " epic vim command completion
 set wildmenu
 

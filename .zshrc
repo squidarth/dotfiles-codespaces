@@ -1,3 +1,4 @@
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load.
@@ -6,23 +7,12 @@ ZSH=$HOME/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 ZSH_THEME="robbyrussell"
 
-
 # Example aliases
-alias vs="vagrant ssh"
-alias vu="vagrant up"
 alias gg="git grep"
 alias src="cd ~/Documents/src"
 # export DOCKER_HOST="tcp://192.168.66.10:2375"
-export FIN_HOME=~/Documents/src/fin-core-beta
-export DOCKER_API_VERSION=1.25
 alias cob="!git checkout -b $1 && git push -u origin"
-alias vf="vim \$(fzf)"
 alias v="vim"
-alias vim="/Applications/MacVim.app/Contents/MacOS/Vim"
-alias emacs="/usr/local/bin/emacs"
-alias ctags="`brew --prefix`/bin/ctags"
-alias dk="docker-compose"
-source "${FIN_HOME}/fin-dev/bashrc"
 
 function gitmigrate () {
   branch_name=$(git symbolic-ref -q HEAD)
@@ -34,7 +24,7 @@ function gitmigrate () {
 }
 
 bindkey -v
-
+export TERM=xterm-256color
 function zle-line-init zle-keymap-select {
     RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
     RPS2=$RPS1
@@ -42,7 +32,6 @@ function zle-line-init zle-keymap-select {
 }
 zle -N zle-line-init
 zle -N zle-keymap-select
-source "${FIN_HOME}/fin-dev/bashrc"
 
 function clear_swaps {
   find . -name ".*.sw*" -exec rm {} \;
@@ -88,17 +77,9 @@ function clear_swaps {
 plugins=(git rails3 bundler zeus vagrant zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
-[[ -s "/Users/sshanker220/.rvm/scripts/rvm" ]] && source "/Users/sshanker220/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 # Customize to your needs...
-export PATH=$PATH:/Users/sshanker220/.rvm/gems/ruby-1.9.3-p0/bin:/Users/sshanker220/.rvm/gems/ruby-1.9.3-p0@global/bin:/Users/sshanker220/.rvm/rubies/ruby-1.9.3-p0/bin:/Users/sshanker220/.rvm/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/X11/bin:/usr/texbin:/Users/sshanker220/go/bin
 export PATH=$PATH:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-export PATH="$PATH:/usr/local/terraform/bin"
-export PATH="$PATH:$HOME/Documents/src/ops-chrome-extension/node_modules/.bin"
-source ~/.rvm/scripts/rvm
-
 bindkey -v
 bindkey "^?" backward-delete-char
 bindkey "^R" history-incremental-search-backward
@@ -107,12 +88,18 @@ bindkey "^R" history-incremental-search-backward
 source "$HOME/.fzf.conf.zsh"
 
 PROMPT='${ret_status}%{$fg_bold[green]%}%p %{$fg[cyan]%}%c %{$fg_bold[blue]%}$(git_prompt_info)%{$fg_bold[blue]%} % %{$reset_color%}${NEWLINE}$ '
-
-function branches-for-cleanup {
-  git fetch --prune &> /dev/null;  git branch -vv | grep ': gone' | perl -lne '/^\\s+(\\S+)\\s/; print $1'
-}
-
 # Delete branches that have been merged
 function cleanup-branches {
   git checkout master;comm -12 <(git branch | sed "s/ *//g") <(git remote prune origin --dry-run | sed "s/^.*origin\///g") |xargs git branch -D
 }
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+export PATH="$PATH:/usr/local/go/bin"
+export GOPATH="$HOME/go"
+export PATH="$PATH:$GOPATH/bin"
+export PATH="$PATH:`yarn global bin`"
+export PATH="$PATH:$HOME/.cargo/bin"

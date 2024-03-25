@@ -1,13 +1,13 @@
-# Step 1: symlink .vimrc to the .vimrc in this folder
 export CURRENT_DIR=`pwd -P`
-
-git clone git@github.com:squidarth/dotfiles.git ~/.dotfiles/
-
-curl https://raw.githubusercontent.com/squidarth/dotfiles/master/viminstall |bash
-
-# Step 2: install oh-my-zsh! 
 
 curl https://raw.githubusercontent.com/squidarth/oh-my-zsh/master/tools/install.sh | zsh
 
-# Step 3 symlink zshrc
-ln -s ~/.dotfiles/.zshrc ~/.zshrc
+# Install plug 
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+cp .vimrc ~/.vimrc
+vim +PlugInstall +qall
+cp .tmux.conf ~/.tmux.conf
+cp .fzf.conf.zsh ~/.fzf.conf.zsh
+cp .zshrc ~/.zshrc

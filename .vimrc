@@ -42,7 +42,6 @@ Plug 'benmills/vimux'
 " Plug "ervandew/supertab"
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
- Plug 'Valloric/YouCompleteMe'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'bogado/file-line'
 Plug 'nvie/vim-flake8'
@@ -216,7 +215,7 @@ let g:acp_enableAtStartup = 0
 "let g:neocomplete#enable_at_startup = 1
 "
 "autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 "autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 "autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 "autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags

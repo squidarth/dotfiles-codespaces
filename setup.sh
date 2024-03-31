@@ -5,7 +5,7 @@ pushd $(dirname $0)
 DOTDIR="$HOME/.me"
 rm -rf $DOTDIR
 mkdir $DOTDIR
-cp -rf * $DOTDIR
+cp -rf * * .[!.]* $DOTDIR
 
 pushd $DOTDIR
 
@@ -19,9 +19,8 @@ ln -s -f  $DOTDIR/.tmux.conf ~/.tmux.conf
 ln  -s -f $DOTDIR/.fzf.conf.zsh ~/.fzf.conf.zsh
 ln  -s -f $DOTDIR/.zshrc ~/.zshrc
 
-# Install plug 
-curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+# Install plug
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 
 vim +PlugInstall +qall
